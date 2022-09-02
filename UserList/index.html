@@ -15,22 +15,48 @@
   <!-- nav -->
   <nav class="navbar bg-light">
     <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1">Navbar</span>
+      <span class="navbar-brand mb-0 h1">Fake User List</span>
     </div>
   </nav>
   <!-- dataPanel -->
   <div class="d-flex flex-wrap justify-content-center text-center" id="data-panel">
-    <!-- card -->
+
   </div>
-  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="user-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="user-modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="user-modal-body">
+          <div class="row">
+            <div class="col-4">
+              <img src="" alt="this is a picture" id="modal-avatar">
+            </div>
+            <div class="col-8">
+              <ul>
+                <li id="modal-gender"></li>
+                <li id="modal-age"></li>
+                <li id="modal-birthday"></li>
+                <li id="modal-region"></li>
+                <li id="modal-email"></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
-  <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
