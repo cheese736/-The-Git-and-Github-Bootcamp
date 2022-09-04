@@ -4,6 +4,8 @@ const POSTER_URL = BASE_URL + '/posters/'
 console.log(axios.get(INDEX_URL))
 
 const dataPanel = document.querySelector('#data-panel')
+const searchForm = document.querySelector('#search-form')
+const searchInput = document.querySelector('#search-input')
 const movies = []
 
 function renderMovieList(data) {
@@ -66,3 +68,15 @@ dataPanel.addEventListener('click', function onPanelClick(event) {
     showMovieModal(Number(event.target.dataset.id))
   }
 })
+
+searchForm.addEventListener('submit', function onSearchFormSubmitted(event) {
+  event.preventDefault()
+  const keyword = searchInput.value.trim().toLowerCase()
+  filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(keyword))
+  if (filteredMovies.length === 0) {
+    return alert('查無資料: ' + keyword)
+  }
+  renderMovieList(filteredMovies)
+})
+
+localStorage.setItem()
