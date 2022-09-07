@@ -26,7 +26,7 @@ function renderMovieList(data) {
           <div class="card-footer">
             <button class="btn btn-primary btn-show-movie" data-bs-toggle="modal"
               data-bs-target="#movie-modal" data-id=${item.id}>More</button>
-            <button class="btn btn-info btn-add-favorite">+</button>
+            <button class="btn btn-info btn-add-favorite" data-id=${item.id}>+</button>
           </div>
         </div>
       </div>
@@ -63,9 +63,26 @@ function showMovieModal(id) {
     })
 }
 
+function addToFavorite(id) {
+    const list = JSON.parse(localStorage.getItem('favoriteMovies')) || []
+    const movieToAdd = movies.find(movie => movie.id === id)
+    if (list.some(existedMovie => existedMovie.id === id)) {
+        return alert('movie already exists')
+    }
+    list.push(movieToAdd)
+    localStorage.setItem('favoriteMovies', JSON.stringify(list))
+
+}
+
+
+
+
+
 dataPanel.addEventListener('click', function onPanelClick(event) {
   if (event.target.matches('.btn-show-movie')) {
     showMovieModal(Number(event.target.dataset.id))
+  } else if (event.target.matches('.btn-add-favorite')) {
+    addToFavorite(Number(event.target.dataset.id))
   }
 })
 
@@ -78,5 +95,3 @@ searchForm.addEventListener('submit', function onSearchFormSubmitted(event) {
   }
   renderMovieList(filteredMovies)
 })
-
-localStorage.setItem()
