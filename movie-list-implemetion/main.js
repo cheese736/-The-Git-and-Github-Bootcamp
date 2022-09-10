@@ -1,12 +1,29 @@
 const BASE_URL = 'https://movie-list.alphacamp.io'
 const INDEX_URL = BASE_URL + '/api/v1/movies/'
 const POSTER_URL = BASE_URL + '/posters/'
-console.log(axios.get(INDEX_URL))
+const MOVIES_PER_PAGE = 12
 
 const dataPanel = document.querySelector('#data-panel')
 const searchForm = document.querySelector('#search-form')
 const searchInput = document.querySelector('#search-input')
+const paginator = document.querySelector('#paginator')
 const movies = []
+let filteredMovies = []
+
+function getMoviesByPage(page) {
+  const data = filteredMovies.length ? filteredMovies : movies
+  const start = (page - 1) * MOVIES_PER_PAGE
+  return data.slice(start, start + MOVIES_PER_PAGE)
+}
+
+function renderPaginator(amount) {
+  const totalPage = Math.ceil(amount / MOVIES_PER_PAGE)
+  let rawHTML = ''
+  for (let page = 1; page <= totalPage; page++) {
+    rawHTML += `<li class="page-item"><a class="page-link" href="#">${page}</a></li>`
+  }
+  paginator.innerHTML = rawHTML
+}
 
 function renderMovieList(data) {
   //title, image
@@ -19,7 +36,7 @@ function renderMovieList(data) {
         <div class="card">
           <img
             src=${POSTER_URL + item.image}
-            class="card-img-top" alt="Movie Poster" />
+            class="card-img-top px-0" alt="Movie Poster" />
           <div class="card-body">
             <h5 class="card-title">${item.title}</h5>
           </div>
@@ -41,7 +58,8 @@ axios
   .then(response => {
     // array
     movies.push(...response.data.results)
-    renderMovieList(movies)
+    renderMovieList(getMoviesByPage(1))
+    renderPaginator(movies.length)
   })
   .catch(err => console.log(err))
 
@@ -93,5 +111,13 @@ searchForm.addEventListener('submit', function onSearchFormSubmitted(event) {
   if (filteredMovies.length === 0) {
     return alert('查無資料: ' + keyword)
   }
-  renderMovieList(filteredMovies)
+  renderPaginator(filteredMovies.length)
+  renderMovieList(getMoviesByPage(1))
+})
+
+paginator.addEventListener('click', function onPaginatorClick(event){
+  if (event.target.matches('.page-link')) {
+    let page = Number(event.target.innerText)
+    renderMovieList(getMoviesByPage(page))
+  }
 })
